@@ -1,0 +1,61 @@
+
+
+<mat-dialog-content class="mat-typography">
+  <div class="fixed-bar">
+    <p class="h4 heading" >Custom Search</p>
+  </div>
+  <div style="margin-top: 32px;" class="flex-div">
+    <mat-form-field appearance="fill">
+      <mat-label>Select a Breed</mat-label>
+      <mat-select [(ngModel)]="selectedBreedName">
+        <mat-option *ngFor="let breedName of breedNames" [value]="breedName">
+          {{ breedName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div style="padding-top: 12px">
+      <mat-form-field class="example-full-width">
+        <mat-label>Number of Images</mat-label>
+        <input
+          matInput
+          type="number"
+          placeholder="Number of Images"
+          [value]="imageCnt"
+          [(ngModel)]="imageCnt"
+          min="1"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <div style="text-align: center">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="onGetImages()"
+      [disabled]="!selectedBreedName || !imageCnt"
+    >
+      Get Images
+    </button>
+  </div>
+
+  <div *ngIf="breedImages.length == imageCnt" style="margin-top: 12px">
+    <p class="h4">Showing {{imageCnt}} images of {{selectedBreedName}}</p>
+  </div>
+
+  <div class="flex-div"
+  >
+    <div
+      *ngFor="let image of breedImages"
+      class="breed-image"
+      style="margin-top: 17.33px"
+    >
+      <div>
+        <img style="width: 100px; height: 100px" [src]="image" alt="" />
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
